@@ -1,3 +1,4 @@
+import { Exclude, Expose } from 'class-transformer';
 import {
   Column,
   CreateDateColumn,
@@ -31,11 +32,22 @@ class Products {
   @Column()
   description: string;
 
+  @Column()
+  @Exclude()
+  productImage: string;
+
   @CreateDateColumn()
   created_at: Date;
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @Expose({ name: 'productImage_url' })
+  getcategoryImage_url(): string | null {
+    return this.productImage
+      ? `http://192.168.1.118:3333/files/${this.productImage}`
+      : null;
+  }
 }
 
 export default Products;

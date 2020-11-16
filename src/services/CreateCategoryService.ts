@@ -1,4 +1,5 @@
 import { getCustomRepository } from 'typeorm';
+import AppError from '../errors/AppError';
 import Category from '../models/Category';
 import CategoryRepository from '../repositories/CategoriesRepository';
 
@@ -13,7 +14,7 @@ class CreateCategoryService {
     const findNameCategory = await categoryRepository.findByName(name);
 
     if (findNameCategory) {
-      throw Error('Category name is already being used');
+      throw new AppError('Category name is already being used');
     }
 
     const category = categoryRepository.create({ name });

@@ -4,23 +4,24 @@ import fs from 'fs';
 import Category from '../models/Category';
 
 import upuloadConfig from '../config/upload';
+import AppError from '../errors/AppError';
 
 interface Request {
-  catogory_id: string;
+  category_id: string;
   ImageCategory: string;
 }
 
 class UpdateCategoryImageService {
   public async execute({
-    catogory_id,
+    category_id,
     ImageCategory,
   }: Request): Promise<Category> {
     const categoryRepository = getRepository(Category);
 
-    const category = await categoryRepository.findOne(catogory_id);
+    const category = await categoryRepository.findOne(category_id);
 
     if (!category) {
-      throw new Error('You need pass a category');
+      throw new AppError('You need pass a category');
     }
 
     if (category.categoryImage) {

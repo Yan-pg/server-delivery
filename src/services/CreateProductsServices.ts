@@ -1,4 +1,5 @@
 import { getRepository } from 'typeorm';
+import AppError from '../errors/AppError';
 import Products from '../models/Products';
 
 interface Request {
@@ -22,7 +23,7 @@ class CreateProductsService {
     });
 
     if (findNameProducts) {
-      throw Error('Products name is already being used');
+      throw new AppError('Products name is already being used');
     }
 
     const products = productsRepository.create({

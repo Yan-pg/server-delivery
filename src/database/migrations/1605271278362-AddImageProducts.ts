@@ -1,12 +1,12 @@
 import { MigrationInterface, QueryRunner, TableColumn } from 'typeorm';
 
-export default class AddAvatarFildToCategory1605204554656
+export default class AddImageProducts1605271278362
   implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.addColumn(
-      'Categories',
+      'products',
       new TableColumn({
-        name: 'categoryImage',
+        name: 'productImage',
         type: 'varchar',
         isNullable: true,
       }),
@@ -14,6 +14,6 @@ export default class AddAvatarFildToCategory1605204554656
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropColumn('Categories', 'categoryImage');
+    await queryRunner.dropColumn('products', 'productImage');
   }
 }

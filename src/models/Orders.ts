@@ -6,22 +6,19 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { Exclude } from 'class-transformer';
-
-@Entity('users')
-class User {
+@Entity('orders')
+class Order {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
   name: string;
 
-  @Column()
-  email: string;
+  @Column('numeric')
+  quantity: number;
 
-  @Column()
-  @Exclude()
-  password: string;
+  @Column('numeric')
+  priceTotal: number;
 
   @Column()
   neighborhood: string;
@@ -39,4 +36,4 @@ class User {
   updated_at: Date;
 }
 
-export default User;
+export default Order;

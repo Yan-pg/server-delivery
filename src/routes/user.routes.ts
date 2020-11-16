@@ -1,26 +1,31 @@
+import { classToClass } from 'class-transformer';
 import { Router } from 'express';
 import CreateUserService from '../services/CreateUserService';
 
 const userRouter = Router();
 
 userRouter.post('/', async (request, response) => {
-  try {
-    const { name, email, password } = request.body;
+  const {
+    name,
+    email,
+    password,
+    neighborhood,
+    houseNumber,
+    street,
+  } = request.body;
 
-    const createUser = new CreateUserService();
+  const createUser = new CreateUserService();
 
-    const user = await createUser.excute({
-      name,
-      email,
-      password,
-    });
+  const user = await createUser.excute({
+    name,
+    email,
+    password,
+    neighborhood,
+    houseNumber,
+    street,
+  });
 
-    delete user.password;
-
-    return response.json(user);
-  } catch (err) {
-    return response.status(400).json({ error: err.message });
-  }
+  return response.json({ user: classToClass(user) });
 });
 
 export default userRouter;
